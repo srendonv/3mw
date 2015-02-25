@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{title}} | 3MW{% endblock %}
+{% block body %}
+<h1>{{title}}</h1>
+<a href="{% url 'summary'%}"><button type="button" class="btn btn-primary {% if aggre == 'sum' %}active{% endif %}">Sum</button></a>
+<a href="{% url 'average'%}"><button type="button" class="btn btn-primary {% if aggre == 'avg' %}active{% endif %}">Average</button></a>
+{% if values %}
+
+<table class="table">
+	<thead>
+		<tr>
+			<td><strong>Site</strong></td>
+			<td><strong>A Value</strong></td>
+			<td><strong>B Value</strong></td>
+		</tr>
+	</thead>
+	<tbody>
+		{% for value in values %}
+		<tr>
+			<td>{{value.site__name}}</td>
+			<td>{{value.a_value|floatformat:2}}</td>
+			<td>{{value.b_value|floatformat:2}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% else %}
+<p>
+	No sites are available.
+</p>
+{% endif %}
+{% endblock %}
